@@ -1,0 +1,76 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blood: #c40024;
+}
+
+html, body {
+  background: #050508;
+  color: #e5e5e5;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(196, 0, 36, 0.6);
+  color: #fff;
+}
+
+/* ---------- cinematic overlays ---------- */
+
+/* dark radial edge falloff */
+.cine-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.92) 100%);
+}
+
+/* dynamic cursor-tracking spotlight (updated on mousemove) */
+.cine-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: background 80ms linear;
+}
+
+/* subtle SVG noise grain with keyframe jitter */
+.cine-grain {
+  position: absolute;
+  inset: -100%;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-jitter 0.9s steps(4) infinite;
+}
+
+@keyframes grain-jitter {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-2%, 1%); }
+  50%  { transform: translate(1%, -2%); }
+  75%  { transform: translate(-1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ultra-faint scanlines */
+.cine-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* thin custom scrollbar, on-brand */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050508; }
+::-webkit-scrollbar-thumb { background: rgba(196, 0, 36, 0.5); border-radius: 3px; }
